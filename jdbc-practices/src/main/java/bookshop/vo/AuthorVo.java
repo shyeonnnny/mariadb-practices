@@ -1,9 +1,8 @@
-package test;
+package bookshop.vo;
 
-public class DeptVo {
+public class AuthorVo {
 	private Long no;
 	private String name;
-	
 	public Long getNo() {
 		return no;
 	}
@@ -18,6 +17,6 @@ public class DeptVo {
 	}
 	@Override
 	public String toString() {
-		return "DeptVo [no=" + no + ", name=" + name + "]";
+		return "AuthorVo [no=" + no + ", name=" + name + "]";
 	}
 }
