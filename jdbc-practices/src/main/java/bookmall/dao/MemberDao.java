@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import bookmall.vo.CategoryVo;
+import bookmall.vo.MemberVo;
 
-public class CategoryDao {
+public class MemberDao {
 	
-	public boolean insert(CategoryVo vo) {
+	public boolean insert(MemberVo vo) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -18,16 +18,19 @@ public class CategoryDao {
 			conn = getConnection();
 			
 			//3. SQL 준비
-			String sql = "insert into category value (null, ?)";
+			String sql = "insert into member value (null, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. 바인딩(binding)
-			pstmt.setString(1, vo.getCategory_title());
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getPhone());
+			pstmt.setString(3, vo.getEmail());
+			pstmt.setString(4, vo.getPassword());
 			
 			//5. SQL 실행
 			int count = pstmt.executeUpdate();
-			
 			result = count == 1;
+			
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -46,7 +49,6 @@ public class CategoryDao {
 		
 		return result;
 	}
-	
 	
 	
 	private Connection getConnection() throws SQLException {

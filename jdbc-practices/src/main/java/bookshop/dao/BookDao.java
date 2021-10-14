@@ -135,6 +135,10 @@ public class BookDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
+		if ( status == "대여중") {
+			System.out.println("\n대여중인 책으로 대여가 불가능합니다.\n");
+		}
+		
 		try {
 			conn = getConnection();
 			
