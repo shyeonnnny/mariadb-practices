@@ -9,6 +9,7 @@ import bookmall.vo.MemberVo;
 
 public class MemberDao {
 	
+	// 회원리스트 입력
 	public boolean insert(MemberVo vo) {
 		boolean result = false;
 		Connection conn = null;

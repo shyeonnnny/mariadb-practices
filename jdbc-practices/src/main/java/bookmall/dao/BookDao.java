@@ -11,59 +11,6 @@ import java.util.List;
 import bookmall.vo.BookVo;
 
 public class BookDao {
-	public List<BookVo> findAll() {
-		List<BookVo> result = new ArrayList<>();
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = getConnection();
-			
-			//3. SQL 준비
-			String sql = 
-				"select book_title, book_price from book";
-			pstmt = conn.prepareStatement(sql);
-			
-			//4. 바인딩(binding)
-			
-			//5. SQL 실행
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				String book_title = rs.getString(1);
-				int book_price = rs.getInt(2);
-				
-				BookVo vo = new BookVo();
-				vo.setBook_title(book_title);
-				vo.setBook_price(book_price);
-				
-				result.add(vo);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			// clean up
-			try {
-				if(rs != null) {
-					rs.close();
-				}
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
-	
 	
 	
 	public boolean insert(BookVo vo) {

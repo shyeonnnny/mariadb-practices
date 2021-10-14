@@ -9,6 +9,7 @@ import bookmall.vo.CategoryVo;
 
 public class CategoryDao {
 	
+	// 카테고리리스트 입력
 	public boolean insert(CategoryVo vo) {
 		boolean result = false;
 		Connection conn = null;

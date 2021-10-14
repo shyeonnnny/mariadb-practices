@@ -2,9 +2,55 @@ package bookmall.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import bookmall.vo.OrderVo;
+
 public class OrderDao {
+	
+	public boolean insert(OrderVo vo) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			//3. SQL 준비
+			String sql = "insert into orders values (null, '2021101401', 1, '대구 북구', 56000)";
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. 바인딩(binding)
+			pstmt.setString(1, vo.getOrders_number());
+			pstmt.setLong(2, vo.getMember_no());
+			pstmt.setString(3, vo.getAddress());
+			pstmt.setInt(4, vo.getFinal_price());
+			
+			//5. SQL 실행
+			int count = pstmt.executeUpdate();
+			
+			result = count == 1;
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			// clean up
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+	
+	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 		try {

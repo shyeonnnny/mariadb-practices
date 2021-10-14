@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import bookmall.vo.BookVo;
+import bookmall.vo.CartVo;
 
 public class CartDao {
 	
-	public boolean insert(BookVo vo) {
+	public boolean insert(CartVo vo) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -18,13 +18,13 @@ public class CartDao {
 			conn = getConnection();
 			
 			//3. SQL 준비
-			String sql = "insert into book value (null, ?, ?, ?)";
+			String sql = "insert into cart values (?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. 바인딩(binding)
-			pstmt.setString(1, vo.getBook_title());
-			pstmt.setInt(2, vo.getBook_price());
-			pstmt.setLong(3, vo.getCategory_no());
+			pstmt.setLong(1, vo.getMember_no());
+			pstmt.setLong(2, vo.getBook_no());
+			pstmt.setInt(3, vo.getCount());
 			
 			//5. SQL 실행
 			int count = pstmt.executeUpdate();
