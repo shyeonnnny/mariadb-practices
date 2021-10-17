@@ -19,6 +19,11 @@ public class CategoryVo {
 	public void setNo(Long no) {
 		this.no = no;
 	}
+
+	@Override
+	public String toString() {
+		return "CategoryVo [no=" + no + ", 카테고리=" + category_title + "]";
+	}
 	
 	
 }

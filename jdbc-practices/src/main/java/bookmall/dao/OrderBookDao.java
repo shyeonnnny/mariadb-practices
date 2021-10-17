@@ -8,13 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bookmall.vo.BookVo;
-import bookmall.vo.MemberVo;
+import bookmall.vo.OrderBookVo;
 
-public class BookDao {
+public class OrderBookDao {
 	
-	public List<BookVo> findAll() {
-		List<BookVo> result = new ArrayList<>();
+	public List<OrderBookVo> findAll() {
+		List<OrderBookVo> result = new ArrayList<>();
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -24,7 +23,7 @@ public class BookDao {
 			conn = getConnection();
 			
 			//3. SQL 준비
-			String sql = "select no, category_no, book_title, book_price from book";
+			String sql = "select orders_no, book_no, book_count from orders_book";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. 바인딩(binding)
@@ -32,16 +31,14 @@ public class BookDao {
 			//5. SQL 실행
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				Long no = rs.getLong(1);
-				Long category_no = rs.getLong(2);
-				String book_title = rs.getString(3);
-				int book_price = rs.getInt(4);
+				int orders_no = rs.getInt(1);
+				int book_no = rs.getInt(2);
+				int book_count = rs.getInt(3);
 				
-				BookVo vo = new BookVo();
-				vo.setNo(no);
-				vo.setCategory_no(category_no);
-				vo.setBook_title(book_title);
-				vo.setBook_price(book_price);
+				OrderBookVo vo = new OrderBookVo();
+				vo.setOrders_no(orders_no);
+				vo.setBook_no(book_no);
+				vo.setBook_count(book_count);
 				
 				result.add(vo);
 			}
@@ -67,8 +64,7 @@ public class BookDao {
 		return result;
 	}
 	
-	
-	public boolean insert(BookVo vo) {
+	public boolean insert(OrderBookVo vo) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -77,13 +73,14 @@ public class BookDao {
 			conn = getConnection();
 			
 			//3. SQL 준비
-			String sql = "insert into book value (null, ?, ?, ?)";
+			String sql = "insert into orders_book values (?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			//4. 바인딩(binding)
-			pstmt.setLong(1, vo.getCategory_no());
-			pstmt.setString(2, vo.getBook_title());
-			pstmt.setInt(3, vo.getBook_price());
+			pstmt.setInt(1, vo.getOrders_no());
+			pstmt.setInt(2, vo.getBook_no());
+			pstmt.setInt(3, vo.getBook_count());
+
 			
 			//5. SQL 실행
 			int count = pstmt.executeUpdate();

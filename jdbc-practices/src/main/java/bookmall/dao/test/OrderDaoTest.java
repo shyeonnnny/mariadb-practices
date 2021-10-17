@@ -1,5 +1,8 @@
 package bookmall.dao.test;
 
+import java.util.List;
+
+import bookmall.dao.MemberDao;
 import bookmall.dao.OrderDao;
 import bookmall.vo.MemberVo;
 import bookmall.vo.OrderVo;
@@ -7,10 +10,18 @@ import bookmall.vo.OrderVo;
 public class OrderDaoTest {
 
 	public static void main(String[] args) {
-//		insertTest();  -- 성공
+		insertTest();
+		findAll();
 	}
 
-	private static void insertTest() {
+	public static void findAll() {
+		List<OrderVo> list = new OrderDao().findAll();
+		for(OrderVo vo : list) {
+			System.out.println(vo);
+		}
+	}
+
+	public static void insertTest() {
 		OrderVo vo = null;
 		OrderDao dao = new OrderDao();
 		
@@ -20,6 +31,7 @@ public class OrderDaoTest {
 		vo.setAddress("대구북구");
 		vo.setFinal_price(56000);
 		dao.insert(vo);
+		
 	}
 
 }

@@ -31,6 +31,11 @@ public class BookVo {
 		this.category_no = category_no;
 	}
 	
+	@Override
+	public String toString() {
+		return "BookVo [no=" + no + ", 카테고리번호=" + category_no + ", 책이름=" + book_title + ", 책가격=" + book_price + "]";
+	}
+	
 	
 	
 	

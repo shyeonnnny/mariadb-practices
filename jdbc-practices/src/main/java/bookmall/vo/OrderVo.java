@@ -37,6 +37,11 @@ public class OrderVo {
 	public void setFinal_price(int final_price) {
 		this.final_price = final_price;
 	}
+	@Override
+	public String toString() {
+		return "OrderVo [no=" + no + ", 주문번호=" + orders_number + ", 회원번호=" + member_no + ", 주소="
+				+ address + ", 최종금액=" + final_price + "]";
+	}
 
 	
 	

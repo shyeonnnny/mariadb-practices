@@ -24,6 +24,10 @@ public class CartVo {
 	public void setCount(int count) {
 		this.count = count;
 	}
+	@Override
+	public String toString() {
+		return "CartVo [회원번호=" + member_no + ", 책번호=" + book_no + ", 책구매갯수=" + count + "]";
+	}
 
 	
 	

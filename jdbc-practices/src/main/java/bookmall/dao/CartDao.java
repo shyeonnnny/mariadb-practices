@@ -3,11 +3,67 @@ package bookmall.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import bookmall.vo.CartVo;
+import bookmall.vo.MemberVo;
 
 public class CartDao {
+	
+	public List<CartVo> findAll() {
+		List<CartVo> result = new ArrayList<>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			
+			//3. SQL 준비
+			String sql = "select member_no, book_no, count from cart";
+			pstmt = conn.prepareStatement(sql);
+			
+			//4. 바인딩(binding)
+			
+			//5. SQL 실행
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Long member_no = rs.getLong(1);
+				Long book_no = rs.getLong(2);
+				int count = rs.getInt(3);
+				
+				CartVo vo = new CartVo();
+				vo.setMember_no(member_no);
+				vo.setBook_no(book_no);
+				vo.setCount(count);
+				
+				result.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			// clean up
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		
+		return result;
+	}
 	
 	public boolean insert(CartVo vo) {
 		boolean result = false;

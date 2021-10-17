@@ -40,6 +40,13 @@ public class MemberVo {
 	}
 	
 	
+	@Override
+	public String toString() {
+		return "회원리스트 [no=" + no + ", 이름=" + name + ", 전화번호=" + phone + ", 이메일=" + email + ", 비밀번호="
+				+ password + "]";
+	}
+	
+	
 	
 	
 
